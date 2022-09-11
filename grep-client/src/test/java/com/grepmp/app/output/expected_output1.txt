@@ -1,0 +1,10 @@
+fa22-cs425-6509.cs.illinois.edu::3000 : 54029
+fa22-cs425-6503.cs.illinois.edu::3000 : 54063
+fa22-cs425-6510.cs.illinois.edu::3000 : 53435
+fa22-cs425-6507.cs.illinois.edu::3000 : 53538
+fa22-cs425-6506.cs.illinois.edu::3000 : 53820
+fa22-cs425-6505.cs.illinois.edu::3000 : 53935
+fa22-cs425-6504.cs.illinois.edu::3000 : 53921
+fa22-cs425-6502.cs.illinois.edu::3000 : 53604
+fa22-cs425-6501.cs.illinois.edu::3000 : 56879
+fa22-cs425-6508.cs.illinois.edu::3000 : 54880
