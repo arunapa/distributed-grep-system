@@ -17,10 +17,11 @@ $ mvn dependency:copy-dependencies
 ```
 A target directory with jar files for the module and its dependencies is created. 
 
-Now move the log files and the target directory of the server module to each VM using setup.sh from the root directory. Change the file path, netid and VM host addresses accordingly.
+Now move the log files and the target directory of the server module to each VM using setup-logs.sh from the root directory. Change the file path, netid and VM host addresses accordingly.
 
 ```
-$ ./setup.sh *VM number from 1-10*
+$ ./setup-logs.sh
+$ ./setup-server.sh <VM Number>
 ```
 
 To run the server on a local machine, execute

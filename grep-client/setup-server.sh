@@ -2,7 +2,6 @@
 
 # SOME GLOBAL VARIABLES
 path_to_server_jar="/Users/aruna/cs425-mp1/grep-server/target/"
-path_to_log_files="/Users/aruna/ws/cs425-mp1/log-file-generator/output/logs"
 netid="aruna2"
 
 list_of_vms=("${netid}@fa22-cs425-6501.cs.illinois.edu"
@@ -25,20 +24,14 @@ fi
 
 i=$1
 
-# for i in $(seq 1 10); do
-#     vm=${list_of_vms[(($i-1))]}
-#     scp "${path_to_log_files}/vm${i}.log" "${vm}:/home/${netid}/"
-# done
-
 vm=${list_of_vms[(($i-1))]}
 
-Copy the grep-server jar files and the actual log file
+# Copy the grep-server jar files
 echo "Setting up..."
 scp -r ${path_to_server_jar} "${vm}:/home/${netid}/"
-scp "${path_to_log_files}/vm${i}.log" "${vm}:/home/${netid}/"
 
 echo "Finished copying files!"
-echo "Starting server on ${vm} on port 3000... Please open a new terminal to run this script again."
+echo "Starting server on ${vm} on port 6002... Please open a new terminal to run this script again."
 
-Start running the server
-ssh ${vm} 'java -cp "target/grepservermp-1.0-SNAPSHOT.jar:target/dependency/*" com.grepservermp.app.App 3000'
+# Start running the server
+ssh ${vm} 'java -cp "target/grepservermp-1.0-SNAPSHOT.jar:target/dependency/*" com.grepservermp.app.App 6002'
