@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -93,7 +94,8 @@ public class App {
             String strDate = dateFormat.format(date);  
             
             Path path = Paths.get("./output/logs/vm." + strDate + ".log");
-            Files.move(path, path.resolveSibling("vm" + i + ".log"));
+            Path pathcopy = Paths.get("./output/logs/vm" + i + ".log");
+            Files.copy(path, pathcopy, StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Completed writing to file!");
 
         }
