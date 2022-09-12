@@ -45,7 +45,7 @@ public class ClientProcessor implements Runnable {
 
             // Store output in a text file
             FileWriter writer = new FileWriter("output.txt", true);
-            writer.write(serverId + " : " + grepCommandResult);
+            writer.write(grepCommandResult);
             writer.write("\n");
             writer.close();
 

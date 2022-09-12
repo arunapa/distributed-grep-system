@@ -16,6 +16,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;  
 
 import org.junit.Test;
+import org.unix4j.Unix4j;
+import org.unix4j.unix.Grep;
+import org.junit.Test;
 
 public class AppTest {
 
@@ -29,21 +32,47 @@ public class AppTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         App app = new App();
+        app.networkConfigPath = "./src/test/java/com/grepmp/app/networkConfigTest.properties";
         String[] strArr = {"", ""};
         app.main(strArr);
 
         File file = new File("output.txt");
         assertTrue(file.exists());
+    }
 
+    /**
+     * TC #2: Test the output received from the servers, and whether the counts add up
+     * Use the locally generated log files and the grep library to check the output locally and compare it against the output received from each server
+     */
+    @Test
+    public void outputValidationTest() {
+        String input = "grep -c PUT";
+
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        App app = new App();
+        app.networkConfigPath = "./src/test/java/com/grepmp/app/networkConfigTest.properties";
+        String[] strArr = {"", ""};
+        app.main(strArr);
+
+        File file = new File("output.txt");
+        
         try {
-            String expectedOutput = Files.readString(Paths.get(
-                "src/test/java/com/grepmp/app/output/expected_output1.txt"), StandardCharsets.US_ASCII);
+            String expectedOutput = "";
+            for (int i = 1; i <= 4; i++) {
+                File logFile = new File("../log-file-generator/output/logs/vm" + i + ".log");
+                String countResult = Unix4j.grep(Grep.Options.count, "PUT", logFile).toStringResult();
+                expectedOutput = expectedOutput.concat(countResult + "\n");
+            }
+            
             String[] expectedOutputArr = expectedOutput.split("\n");
             Arrays.sort(expectedOutputArr);
+            System.out.println(expectedOutput);
 
             String actualOutput = Files.readString(Paths.get("output.txt"), StandardCharsets.US_ASCII);
             String[] actualOutputArr = actualOutput.split("\n");
             Arrays.sort(actualOutputArr);
+            System.out.println(actualOutput);
             
             assertEquals(expectedOutput.length(), actualOutput.length());
             assertArrayEquals(expectedOutputArr, actualOutputArr);
