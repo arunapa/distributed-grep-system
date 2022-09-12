@@ -4,6 +4,20 @@ The distributed grep system is designed with 2 major modules in each machine - a
 
 ![arch](img/distributed_grep.png)
 
+## Folder structure
+
+```
+.
+├── src/
+│   ├── main/
+│   │   ├── java/<...> (App code folder)
+│   │   └── resources/ (config like log4j2.xml goes here)
+│   └── test/ (unit tests should go here)
+├── target/ (this is the build folder, contains the target JAR file of the application)
+│   └── dependency/ (contains jar dependencies that are needed to run the application)
+└── pom.xml (manifest/configuration of the maven project)
+```
+
 ## Grep Server
 
 Server program that is up and running in all the VMs and listens for grep commands sent from a remote (or local) client. Uses Unix4j to grep pattern from the local log file.
@@ -57,4 +71,4 @@ $ java -cp "target/grepmp-1.0-SNAPSHOT.jar:target/dependency/*" com.grepmp.app.A
 
 ### Unit tests
 
-Test the unix4j library integration into the socket code. Most of the test cases are validation based, and check for whether a specific output is generated as part of the grep command input provided. 
+Unit tests are executed during build time for each module, and have been written using JUnit. Most of the test cases are validation based, and check for whether a specific output is generated as part of the grep command input provided. Each module has separate unit tests, and we have also implemented two distributed unit tests that exercise the whole end-to-end connection flow. The first unit test verifies whether the client-server connection is established, and that data is received back from the server by the client. The second unit test covers the output validation portion, and compares the grep output when run on a single machine against the consolidated output received by the client from across all machines.
